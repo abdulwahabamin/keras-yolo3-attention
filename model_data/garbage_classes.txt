@@ -1,0 +1,12 @@
+plastic_bag
+plastic_wrapper
+plastic_bottle
+plastic_cap
+shoes
+decor
+cigarette
+paper_wrapper
+cardboard
+tetrapak
+cluster
+other
