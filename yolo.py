@@ -25,7 +25,7 @@ from keras.utils import multi_gpu_model
 
 class YOLO(object):
     _defaults = {
-        "model_path": 'logs/yolo-attention-log-multiply_annot/trained_weights_final.h5',
+        "model_path": 'attention_weights.h5',
         "anchors_path": 'model_data/yolo_anchors.txt',
         "classes_path": 'model_data/garbage_classes.txt',
         "score" : 0.5,
@@ -117,7 +117,7 @@ class YOLO(object):
             boxed_image = letterbox_image(image, new_image_size)
         image_data = np.array(boxed_image, dtype='float32')
 
-        print(image_data.shape)
+        # print(image_data.shape)
         image_data /= 255.
         image_data = np.expand_dims(image_data, 0)  # Add batch dimension.
 
@@ -129,7 +129,7 @@ class YOLO(object):
                 K.learning_phase(): 0
             })
 
-        print('Found {} boxes for {}'.format(len(out_boxes), 'img'))
+        # print('Found {} boxes for {}'.format(len(out_boxes), 'img'))
 
         font = ImageFont.truetype(font='font/FiraMono-Medium.otf',
                     size=np.floor(3e-2 * image.size[1] + 0.5).astype('int32'))
@@ -151,7 +151,7 @@ class YOLO(object):
             left = max(0, np.floor(left + 0.5).astype('int32'))
             bottom = min(image.size[1], np.floor(bottom + 0.5).astype('int32'))
             right = min(image.size[0], np.floor(right + 0.5).astype('int32'))
-            print(label, (left, top), (right, bottom))
+            # print(label, (left, top), (right, bottom))
             annot.append(str(lab) + ' ' + str(left) + ' ' + str(top) + ' ' + str(right) + ' ' + str(bottom))
             if top - label_size[1] >= 0:
                 text_origin = np.array([left, top - label_size[1]])
@@ -170,7 +170,7 @@ class YOLO(object):
             del draw
 
         end = timer()
-        print(end - start)
+        # print(end - start)
         return image , annot
 
     def close_session(self):

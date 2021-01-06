@@ -3,32 +3,33 @@ import argparse
 import os
 from yolo import YOLO, detect_video
 from PIL import Image
+from tqdm import tqdm
 
-# def detect_img(yolo,base_path,folders,split,savedir):
-#     for folder in folders:
-#         txt_file = os.path.join(base_path,folder,'ImageSets/Main',split + '.txt')
-#         f = open(txt_file,'r')
-#         lines = f.readlines()
-#         for line in lines:
-#             img_name = line.strip()
-#             img = os.path.join(base_path,folder,'JPEGImages',img_name + '.jpg')     
-#             print('testing image ' + img + '\n')
-#             try:
-#                 image = Image.open(img)
-#             except:
-#                 print(img + ' does not exist')
-#                 continue
-#             else:
-#                 r_image, annot = yolo.detect_image(image)
+def detect_img(yolo,base_path,folders,split,savedir):
+    for folder in folders:
+        txt_file = os.path.join(base_path,folder,'ImageSets/Main',split + '.txt')
+        f = open(txt_file,'r')
+        lines = f.readlines()
+        for line in tqdm(lines):
+            img_name = line.strip()
+            img = os.path.join(base_path,folder,'JPEGImages',img_name + '.jpg')
+            # print('testing image ' + img + '\n')
+            try:
+                image = Image.open(img)
+            except:
+                print(img + ' does not exist')
+                continue
+            else:
+                r_image, annot = yolo.detect_image(image)
                 
-#                 if not os.path.exists(os.path.join(savedir,folder)):
-#                     os.mkdir(os.path.join(savedir,folder))
-#                 f = open(os.path.join(savedir,folder,img_name +'.txt'),'w+')
-#                 for annotation in annot:
-#                     f.write(annotation + '\n')
-#                 f.close()
-#                 r_image.save(os.path.join(savedir,folder,img_name + '.jpg'))
-#     yolo.close_session()
+                if not os.path.exists(os.path.join(savedir,folder)):
+                    os.mkdir(os.path.join(savedir,folder))
+                f = open(os.path.join(savedir,folder,img_name +'.txt'),'w+')
+                for annotation in annot:
+                    f.write(annotation + '\n')
+                f.close()
+                r_image.save(os.path.join(savedir,folder,img_name + '.jpg'))
+    yolo.close_session()
 
 # def detect_img(yolo,base_path,folders,split,savedir):
 #     for folder in folders:
@@ -51,33 +52,33 @@ from PIL import Image
 #                 r_image.save(os.path.join(savedir,img_name))
 #     yolo.close_session()
 
-def detect_img(yolo,base_path,folders,split,savedir):
-    for folder in folders:
-        # txt_file = os.path.join(base_path,folder,'ImageSets/Main',split + '.txt')
-        lines = os.listdir(os.path.join(base_path,folder))
-        lines = [k for k in lines if '.jpg' or '.png' in k]
-        for line in lines:
-            img = os.path.join(base_path,folder,line)
-            print('testing image ' + img + '\n')
-            try:
-                image = Image.open(img)
-            except:
-                print(img + ' does not exist')
-                continue
-            else:
-                r_image, annot = yolo.detect_image(image)
-                im = line.split('.')[0]
-                print(im)
-                if not os.path.exists(savedir):
-                    os.mkdir(savedir)
-                f = open(os.path.join(savedir,im +'.txt'),'w+')
-                for annotation in annot:
-                    f.write(annotation + '\n')
-                f.close()
-                if not os.path.exists(os.path.join(savedir,folder)):
-                    os.mkdir(os.path.join(savedir,folder))
-                r_image.save(os.path.join(savedir,folder,line))
-    yolo.close_session()
+# def detect_img(yolo,base_path,folders,split,savedir):
+#     for folder in folders:
+#         # txt_file = os.path.join(base_path,folder,'ImageSets/Main',split + '.txt')
+#         lines = os.listdir(os.path.join(base_path, folder))
+#         lines = [k for k in lines if '.jpg' or '.png' in k]
+#         for line in tqdm(lines):
+#             img = os.path.join(base_path, folder, line)
+#             print('testing image ' + img + '\n')
+#             try:
+#                 image = Image.open(img)
+#             except:
+#                 print(img + ' does not exist')
+#                 continue
+#             else:
+#                 r_image, annot = yolo.detect_image(image)
+#                 im = line.split('.')[0]
+#                 print(im)
+#                 if not os.path.exists(savedir):
+#                     os.mkdir(savedir)
+#                 f = open(os.path.join(savedir,im +'.txt'),'w+')
+#                 for annotation in annot:
+#                     f.write(annotation + '\n')
+#                 f.close()
+#                 if not os.path.exists(os.path.join(savedir,folder)):
+#                     os.mkdir(os.path.join(savedir,folder))
+#                 r_image.save(os.path.join(savedir,folder,line))
+#     yolo.close_session()
 
 FLAGS = None
 
@@ -125,13 +126,13 @@ if __name__ == '__main__':
     )
 
     FLAGS = parser.parse_args()
-    base_path = '../../datasets/temp'
-    folders = ['images']
-    # base_path= '/home/cvlab/Desktop/Ted/dataset'
+    # base_path = '../../datasets/temp'
+    # folders = ['images']
+    base_path= '/Ted/LUMS/Thesis/Datasets/VOC_Test_'
     # folders = ['VOC_COMSATS_1','VOC_LUMS_1','VOC_LUMS_2','VOC_SKP_1']
-    # folders = ['VOC_Test_Easy','VOC_Test_Hard']
+    folders = ['VOC_Test_Easy', 'VOC_Test_Hard']
     split = 'test' #can be train, train_val or test
-    savedir = '../results/artificial'
+    savedir = '/Ted/LUMS/Thesis/results/yolo-attention'
     # savedir = '/home/cvlab/Desktop/Ted/results/supplementary-1/yolo'
     if FLAGS.image:
         """
