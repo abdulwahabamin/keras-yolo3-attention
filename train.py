@@ -29,7 +29,7 @@ sess = tf.Session(config=config)
 
 def _main():
     annotation_path = 'annot_labels.txt'
-    log_dir = 'logs/thesis/yolo-attention-log-addition'
+    log_dir = 'logs/thesis/yolo-attention-softmax-addition'
     classes_path = 'model_data/garbage_classes.txt'
     anchors_path = 'model_data/yolo_anchors.txt'
     class_names = get_classes(classes_path)
