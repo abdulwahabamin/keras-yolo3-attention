@@ -103,7 +103,7 @@ def _main():
             epochs=1000,
             initial_epoch=0,
             callbacks=callbacks,
-            workers=20, use_multiprocessing=True, shuffle=True)
+            workers=8, use_multiprocessing=True, shuffle=True)
         model.save_weights(log_dir + 'trained_weights_final.h5')
 
     # Further training if needed.
