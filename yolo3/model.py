@@ -53,7 +53,7 @@ def logFunc(x):
 # Log multiply
 def attention(x,l_name):
     x_log = Lambda(logFunc)(x)
-    x = Add(name=l_name)([x, x_log])
+    x = Multiply(name=l_name)([x, x_log])
     return x
 
 
