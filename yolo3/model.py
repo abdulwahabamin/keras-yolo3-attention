@@ -47,13 +47,14 @@ def resblock_body(x, num_filters, num_blocks):
 
 
 def logFunc(x):
-    x = K.relu(x) + 1
-    return K.log(x)
+    # x = K.relu(x) + 1
+    # return K.log(x)
+    return K.softmax(x)
 
 # Log multiply
 def attention(x,l_name):
     x_log = Lambda(logFunc)(x)
-    x = Multiply(name=l_name)([x, x_log])
+    x = Add(name=l_name)([x, x_log])
     return x
 
 
