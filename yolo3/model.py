@@ -49,7 +49,7 @@ def resblock_body(x, num_filters, num_blocks):
 def logFunc(x):
     # x = K.relu(x) + 1
     # return K.log(x)
-    return K.softmax(x)
+    return K.sigmoid(x)
 
 # Log multiply
 def attention(x,l_name):
