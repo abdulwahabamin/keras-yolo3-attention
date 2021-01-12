@@ -29,7 +29,7 @@ sess = tf.Session(config=config)
 
 def _main():
     annotation_path = 'annot_labels.txt'
-    log_dir = 'logs/thesis/yolo-attention-log'
+    log_dir = 'logs/thesis/yolo-attention-softmax-multiply'
     classes_path = 'model_data/garbage_classes.txt'
     anchors_path = 'model_data/yolo_anchors.txt'
     class_names = get_classes(classes_path)
@@ -103,7 +103,7 @@ def _main():
             epochs=1000,
             initial_epoch=0,
             callbacks=callbacks,
-            workers=1, use_multiprocessing=False, shuffle=True)
+            workers=20, use_multiprocessing=True, shuffle=True)
         model.save_weights(log_dir + 'trained_weights_final.h5')
 
     # Further training if needed.
