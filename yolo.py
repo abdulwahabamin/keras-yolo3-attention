@@ -140,8 +140,8 @@ class YOLO(object):
             box = out_boxes[i]
             score = out_scores[i]
 
-            # label = '{} {:.2f}'.format(predicted_class, score)
-            label = ''
+            label = '{} {:.2f}'.format(predicted_class, score)
+            # label = ''
             lab = '{} {:.2f}'.format(predicted_class, score)
             draw = ImageDraw.Draw(image)
             label_size = draw.textsize(label, font)
